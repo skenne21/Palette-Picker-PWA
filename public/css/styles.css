@@ -1,0 +1,63 @@
+h1 {
+  text-align: center;
+  font-size: 3em;
+}
+
+.palette_container {
+  width: 100%;
+  height: 600px;
+  display: inline-flex;
+  flex-direction: row;
+  background-color: green;
+}
+
+.palette {
+  margin: 10px;
+  width: 20%;
+  height: 500px;
+  background-color: pink;
+}
+
+.palette button {
+  position: relative;
+  top: 440px;
+  left: 40%;
+  width: 30%;
+}
+
+.palette h2 {
+  position: relative;
+  top: 430px;
+  left: 45%;
+  width: 30%;
+}
+
+.palette_generator {
+  margin: 10px;
+  position: relative;
+  left: 38%;
+  width: 300px;
+  height: 60px;
+}
+
+.palette_name {
+  margin: 10px;
+  position: relative;
+  left: 30%;
+  width: 200px;
+  height: 30px;
+}
+
+.save_project {
+  height: 30px;
+}
+
+select {
+  height: 30px;
+  margin: 10px;
+}
+
+.project_info {
+  position: relative;
+  left: 17%;
+}
