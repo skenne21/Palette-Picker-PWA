@@ -5,7 +5,7 @@ const randomColorGenerator = () => {
     const hexText = $('h2').get();
     if(!$(palletes[i]).hasClass('lock')) {
       $(palletes[i]).css('background-color', color);
-      $(hexText[i]).text(color);
+      $(hexText[i]).text(color.toUpperCase());
     }
   }
 }
