@@ -1,11 +1,11 @@
 body {
-  background-color: #F4F4F4;
-}
-
-header {
   background-color: #404141;
 }
 
+/*header {
+  background-color: ;
+}
+*/
 h1 {
   padding: 10px;
   letter-spacing: 2px;
@@ -39,14 +39,6 @@ select {
   background-color: pink;
 }
 
-/*.palette button {
-  position: relative;
-  top: 10px;
-  left: 34%;
-  width: 30%;
-  z-index: 3;
-}*/
-
 .palette h2 {
   text-align: center;
   font-size: 3.7em;
@@ -61,15 +53,17 @@ select {
   height: 60px;
 }
 
+input {
+  height: 30px;
+  width: 300px;
+  padding-left: 10px;
+  font-size: 1em;
+}
+
 .palette_name {
   margin: 10px;
   position: relative;
   left: 1%;
-  height: 30px;
-  width: 300px;
-  padding: 10p;
-  padding-left: 10px;
-  font-size: 1em;
 }
 
 .save_project {
@@ -96,10 +90,6 @@ select {
   background-position: center; 
 }
 
-/*.palette button {
-  
-}*/
-
 .locked {
   background-image: url('../images/locked.png');
   background-size: cover;
@@ -117,4 +107,25 @@ select {
   background-position: top;
   background-size: cover;
   border-top-style: 2px solid black; 
+}
+
+.saved_projects {
+  position: relative;
+  margin: 3em auto;
+  width: 40%;
+  height: 300px;
+  text-align: center;
+  font-size: 1.5em;
+  background-color: green;
+}
+
+.save-project {
+  vertical-align: top;
+  width: 30%;
+  height: 35px;
+  font-size: 0.6em;
+}
+
+h3 {
+  padding-top: 0.5em;
 }

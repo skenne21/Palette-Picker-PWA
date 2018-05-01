@@ -10,16 +10,25 @@ const randomColorGenerator = () => {
   }
 }
 
-
 const toggleLock = (event) => {
   const pallete = event.target.closest('article');
   const button = event.target.closest('button');
   $(pallete).toggleClass('lock');
   $(button).toggleClass('locked');
-  console.log(pallete)
+}
+
+const fetchPallets = async () => {
+  const response = await fetch('http://localhost:3000/api/v1/palettes');
+  const palettes = await response.json();
+  console.log(palettes)
+}
+
+const fetchProjects = async () => {
+  const response = await fetch('http://localhost:3000/api/v1/projects');
+  const projects = await response.json();
+  console.log(projects)
 }
 
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
-
 $('document').ready(randomColorGenerator);
