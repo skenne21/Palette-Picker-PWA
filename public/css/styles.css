@@ -1,0 +1,114 @@
+body {
+  background-color: #F4F4F4;
+}
+
+header {
+  background-color: #404141;
+}
+
+h1 {
+  padding: 10px;
+  letter-spacing: 2px;
+  margin: 0;
+  color: #F4F4F4;
+  text-align: center;
+  font-size: 3em;
+}
+
+.palette_container {
+
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: row;
+  background-color: black;
+}
+
+.palette {
+  z-index: 0;
+  position: relative;
+  margin: 10px;
+  width: 20%;
+  height: 400px;
+  background-color: pink;
+}
+
+.palette button {
+  position: relative;
+  top: 10px;
+  left: 34%;
+  width: 30%;
+  z-index: 3;
+}
+
+.palette h2 {
+  text-align: center;
+  font-size: 4em;
+  
+  width: 100%;
+}
+
+.palette_generator {
+  font-size: 2em;
+  margin: 10px;
+  position: relative;
+  left: 38%;
+  /*width: 300px;*/
+  height: 60px;
+}
+
+.palette_name {
+  margin: 10px;
+  position: relative;
+  left: 1%;
+  height: 30px;
+  width: 300px;
+  padding: 10p;
+  padding-left: 10px;
+  font-size: 1em;
+}
+
+
+
+.save_project {
+  height: 35px;
+  font-size: 1em;
+}
+
+select {
+    width: 100px;
+    height: 37px;
+    margin: 10px;
+    font-size: 1em;
+}
+
+.project_info {
+  position: relative;
+  left: 30%;
+}
+
+.lock_btn {
+  border-radius: 20%;
+  height: 90px;
+  background-image: url('../images/unlocked.png');
+  background-size: cover;
+  background-position: center; 
+}
+
+.locked {
+  background-image: url('../images/locked.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.handle {
+  padding: 5px;
+  position: absolute;
+  top:  80%;
+  right: 0;
+  width: 100%;
+  height: 500px;
+  background-image: url('../images/handle.png');
+  background-position: top;
+  background-size: cover;
+  border-top-style: 2px solid black; }
