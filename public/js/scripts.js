@@ -32,3 +32,4 @@ const fetchProjects = async () => {
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
 $('document').ready(randomColorGenerator);
+$('.palette_name').on('keyup', createPalette)
