@@ -1,35 +1,44 @@
+/*body {
+  margin: 0;
+}*/
+
 h1 {
   text-align: center;
   font-size: 3em;
 }
 
 .palette_container {
+
   width: 100%;
-  height: 600px;
+  height: 100%;
   display: inline-flex;
   flex-direction: row;
-  background-color: green;
+  background-color: black;
 }
 
 .palette {
+  z-index: 0;
+  position: relative;
   margin: 10px;
   width: 20%;
-  height: 500px;
+  height: 400px;
   background-color: pink;
+  /*border-bottom-right-radius: 20%: */
 }
 
 .palette button {
   position: relative;
-  top: 440px;
-  left: 40%;
+  top: 10px;
+  left: 34%;
   width: 30%;
+  z-index: 3;
 }
 
 .palette h2 {
-  position: relative;
-  top: 430px;
-  left: 45%;
-  width: 30%;
+  text-align: center;
+  font-size: 4em;
+  
+  width: 100%;
 }
 
 .palette_generator {
@@ -61,3 +70,29 @@ select {
   position: relative;
   left: 17%;
 }
+
+.lock_btn {
+  border-radius: 20%;
+  height: 90px;
+  background-image: url('../images/002-lock.png');
+  background-size: cover;
+  background-position: center; 
+}
+
+.locked {
+  background-image: url('../images/001-tool.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.handle {
+  padding: 5px;
+  position: absolute;
+  top:  80%;
+  right: 0;
+  width: 100%;
+  height: 500px;
+  background-image: url('../images/handle.png');
+  background-position: top;
+  background-size: cover;
+  border-top-style: 2px solid black; }
