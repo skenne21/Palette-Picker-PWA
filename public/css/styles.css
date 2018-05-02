@@ -12,9 +12,11 @@ h1 {
 }
 
 select {
-    width: 100px;
+    background-color: transparent;
+    width: 20%;
     height: 37px;
     margin: 10px;
+    margin-left: 20px;
     font-size: 1em;
 }
 
@@ -74,6 +76,9 @@ h3 {
 }
 
 .save_palette {
+  position: relative;
+  top: 60px;
+  right: 250px;
   height: 35px;
   font-size: 1em;
 }
@@ -152,4 +157,8 @@ h3 {
   font-size: 0.8em;
 }
 
+.select-label {
+  position: relative;
+  left: 1%;
+}
 
