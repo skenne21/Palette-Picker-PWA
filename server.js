@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 app.locals.palettes = [{"green": "bule"}];
-app.locals.projects = [{"project": "bule"}, {"project": "batman"}]
+app.locals.projects = [{"project": "joker", pallete: ['#DF482C', '#4C53D1', '#916084', '#B176C6', '#BB63B9']}, {"project": "batman", pallete: ['#DF482C', '#4C53D1', '#916084', '#B176C6', '#BB63B9']}]
 
 
 app.use((request, response, next) => {
@@ -16,6 +16,7 @@ app.use((request, response, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'));
 
 app.get('/', (request, response) => {
   response.send('hello')

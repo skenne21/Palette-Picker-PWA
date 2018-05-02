@@ -55,6 +55,23 @@ const renderProjects = projects => {
     $('.projects').append(`
       <article class='project'>
         <h3>${project.project}</h3>
+        <section class="project-palletes">
+          <div class="mini-pallete" style="background-color:${project.pallete[0]};">
+            <h4>${project.pallete[0]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[1]};">
+            <h4>${project.pallete[1]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[2]};">
+            <h4>${project.pallete[2]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[3]};">
+            <h4>${project.pallete[3]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[4]};">
+            <h4>${project.pallete[4]}</h4>
+          </div>
+        </section>
       </article>
     `)
   });
@@ -76,24 +93,24 @@ const fetchProjects = async () => {
 
 
 
-// const saveProjects = async () => {
-//   const project = $('.project-name').val();
+const saveProjects = async () => {
+  const project = $('.project-name').val();
 
-//   const response = await fetch('http://localhost:3000/api/v1/projects', {
-//     method: 'POST',
-//     body: JSON.stringify({project}),
-//     headers: {'Content-Type' : 'application/json'}
-//   });
-//   console.log(response)
-//   const data = response.json();
-//   console.log(data);
-//   $('.project-name').val('')
-// }
+  const response = await fetch('http://localhost:3000/api/v1/projects', {
+    method: 'POST',
+    body: JSON.stringify({project: project}),
+    headers: {'Content-Type' : 'application/json'}
+  });
+  console.log(response)
+  const data = response.json();
+  console.log(data);
+  $('.project-name').val('')
+}
 
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
-// $('.save-project').on('click', saveProjects);
-;
+$('.save-project').on('click', saveProjects);
+
 $(document).ready(() => {
   randomColorGenerator(),
   fetchProjects()
