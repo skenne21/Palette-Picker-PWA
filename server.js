@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 app.locals.palettes = [{"green": "bule"}];
-app.locals.projects = [{"green": "bule"}, {"green": "bule"}]
+app.locals.projects = [{"project": "bule"}, {"project": "batman"}]
 
 
 app.use((request, response, next) => {
@@ -49,6 +49,18 @@ app.post('/api/v1/palettes', (request, response) => {
     return response.status(201).json({id, palette});
   }
 })
+
+app.post('/api/v1/projects', (request, response) => {
+  console.log(request)
+  const id = Date.now();
+  const { project } = request.body;
+  if (!project) {
+    return response.status(422).send({error: 'No project property provided'});
+  } else {
+    app.locals.projects.push({id, project});
+    return response.status(201).json({id, project});
+  }
+});
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
