@@ -15,6 +15,7 @@ const randomColorGenerator = () => {
       unlockedPallete(palletes, hexText, color, i);
     }
   }
+  console.log(pallete.colors)
 }
 
 const lockedPallete = (palletes, i) => {
