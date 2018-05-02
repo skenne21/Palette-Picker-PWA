@@ -9,10 +9,10 @@ app.locals.palettes = [{"green": "bule"}];
 app.locals.projects = [{"project": "joker", pallete: ['#DF482C', '#4C53D1', '#916084', '#B176C6', '#BB63B9']}, {"project": "batman", pallete: ['#DF482C', '#4C53D1', '#916084', '#B176C6', '#BB63B9']}]
 
 
-app.use((request, response, next) => {
-  response.header('Access-Control-Allow-Origin', '*')
-  next()
-});
+// app.use((request, response, next) => {
+//   response.header('Access-Control-Allow-Origin', '*')
+//   next()
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -52,7 +52,6 @@ app.post('/api/v1/palettes', (request, response) => {
 })
 
 app.post('/api/v1/projects', (request, response) => {
-  console.log(request)
   const id = Date.now();
   const { project } = request.body;
   if (!project) {

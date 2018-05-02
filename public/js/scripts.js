@@ -5,7 +5,7 @@ const project = {}
 const randomColorGenerator = () => {
   pallete.colors = [];
   for (let i = 0; i < 5; i++) {
-    const color =  '#' + Math.floor(Math.random()*16777215).toString(16);
+    const color =  '#' + Math.floor(Math.random()*16777215).toString(16).toUpperCase();
     const palletes = $('article').get();
     const hexText = $('h2').get();
     if ($(palletes[i]).hasClass('lock')) {
@@ -18,23 +18,23 @@ const randomColorGenerator = () => {
 }
 
 const lockedPallete = (palletes, i) => {
-  const hexCode = convertToHex(palletes[i].style.backgroundColor);
+  const hexCode = $(palletes[i]).find('h2').text()
   pallete.colors.push(hexCode);
 }
 
 const unlockedPallete = (palletes, hexText, color, i) => {
   $(palletes[i]).css('background-color', color);
-  $(hexText[i]).text(color.toUpperCase());
+  $(hexText[i]).text(color);
   pallete.colors.push(color)
 }
 
-const convertToHex = rgb => {
- rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
- return (rgb && rgb.length === 4) ? "#" +
-  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
-}
+// const convertToHex = rgb => {
+//  rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+//  return (rgb && rgb.length === 4) ? "#" +
+//   ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+//   ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+//   ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+// }
 
 const toggleLock = event => {
   const pallete = event.target.closest('article');
@@ -81,7 +81,6 @@ const renderProjects = projects => {
 const fetchPallets = async () => {
   const response = await fetch('http://localhost:3000/api/v1/palettes');
   const palettes = await response.json();
-  console.log(palettes)
 }
 
 const fetchProjects = async () => {
@@ -91,17 +90,13 @@ const fetchProjects = async () => {
   renderSelectOptions(projects.projects);
 }
 
-
-
 const saveProjects = async () => {
-  const project = $('.project-name').val();
-
+  project.name = $('.project-name').val(); 
   const response = await fetch('http://localhost:3000/api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({project: project}),
     headers: {'Content-Type' : 'application/json'}
   });
-  console.log(response)
   const data = response.json();
   console.log(data);
   $('.project-name').val('')
