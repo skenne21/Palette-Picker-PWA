@@ -47,36 +47,36 @@ const toggleLock = event => {
 const renderSelectOptions = projects => {
   projects.forEach( project => {
     $('.select_project').prepend(`
-      <option value='${project.project}'>${project.project}</option>`)
+      <option value='${project.name}'>${project.name}</option>`)
   });
 }
 
-const renderProjects = projects => {
-  projects.forEach( project => {
-    $('.projects').append(`
-      <article class='project'>
-        <h3>${project.project}</h3>
-        <section class="project-palletes">
-          <div class="mini-pallete" style="background-color:${project.pallete[0]};">
-            <h4>${project.pallete[0]}</h4>
-          </div>
-          <div class="mini-pallete" style="background-color:${project.pallete[1]};">
-            <h4>${project.pallete[1]}</h4>
-          </div>
-          <div class="mini-pallete" style="background-color:${project.pallete[2]};">
-            <h4>${project.pallete[2]}</h4>
-          </div>
-          <div class="mini-pallete" style="background-color:${project.pallete[3]};">
-            <h4>${project.pallete[3]}</h4>
-          </div>
-          <div class="mini-pallete" style="background-color:${project.pallete[4]};">
-            <h4>${project.pallete[4]}</h4>
-          </div>
-        </section>
-      </article>
-    `)
-  });
-}
+// const renderProjects = projects => {
+//   projects.forEach( project => {
+//     $('.projects').append(`
+//       <article class='project'>
+//         <h3>${project.project}</h3>
+//         // <section class="project-palletes">
+//         //   <div class="mini-pallete" style="background-color:${project.pallete[0]};">
+//         //     <h4>${project.pallete[0]}</h4>
+//         //   </div>
+//         //   <div class="mini-pallete" style="background-color:${project.pallete[1]};">
+//         //     <h4>${project.pallete[1]}</h4>
+//         //   </div>
+//         //   <div class="mini-pallete" style="background-color:${project.pallete[2]};">
+//         //     <h4>${project.pallete[2]}</h4>
+//         //   </div>
+//         //   <div class="mini-pallete" style="background-color:${project.pallete[3]};">
+//         //     <h4>${project.pallete[3]}</h4>
+//         //   </div>
+//         //   <div class="mini-pallete" style="background-color:${project.pallete[4]};">
+//         //     <h4>${project.pallete[4]}</h4>
+//         //   </div>
+//         / </section>
+//       </article>
+//     `)
+//   });
+// }
 
 
 const fetchPallets = async () => {
@@ -87,19 +87,21 @@ const fetchPallets = async () => {
 const fetchProjects = async () => {
   const response = await fetch('http://localhost:3000/api/v1/projects');
   const projects = await response.json();
-  renderProjects(projects.projects);
-  renderSelectOptions(projects.projects);
+  console.log(projects)
+  // renderProjects(projects);
+  renderSelectOptions(projects);
 }
 
 const saveProjects = async () => {
   project.name = $('.project-name').val(); 
+
   const response = await fetch('http://localhost:3000/api/v1/projects', {
     method: 'POST',
-    body: JSON.stringify({project: project}),
+    body: JSON.stringify(project),
     headers: {'Content-Type' : 'application/json'}
   });
   const data = response.json();
-  console.log(data);
+  console.log(data)
   $('.project-name').val('')
 }
 
