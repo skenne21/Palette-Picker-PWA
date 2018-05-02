@@ -46,7 +46,17 @@ const toggleLock = event => {
 const renderSelectOptions = projects => {
   projects.forEach( project => {
     $('.select_project').prepend(`
-      <option value='${project.project}'>${project.project}</option`)
+      <option value='${project.project}'>${project.project}</option>`)
+  });
+}
+
+const renderProjects = projects => {
+  projects.forEach( project => {
+    $('.projects').append(`
+      <article class='project'>
+        <h3>${project.project}</h3>
+      </article>
+    `)
   });
 }
 
@@ -60,6 +70,7 @@ const fetchPallets = async () => {
 const fetchProjects = async () => {
   const response = await fetch('http://localhost:3000/api/v1/projects');
   const projects = await response.json();
+  renderProjects(projects.projects);
   renderSelectOptions(projects.projects);
 }
 

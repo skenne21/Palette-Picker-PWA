@@ -2,10 +2,6 @@ body {
   background-color: #404141;
 }
 
-/*header {
-  background-color: ;
-}
-*/
 h1 {
   padding: 10px;
   letter-spacing: 2px;
@@ -96,7 +92,7 @@ input {
   background-position: center;
 }
 
-.handle {
+/*.handle {
   padding: 5px;
   position: absolute;
   top:  80%;
@@ -107,12 +103,12 @@ input {
   background-position: top;
   background-size: cover;
   border-top-style: 2px solid black; 
-}
+}*/
 
 .saved_projects {
   position: relative;
   margin: 3em auto;
-  width: 40%;
+  width: 60%;
   height: 300px;
   text-align: center;
   font-size: 1.5em;
