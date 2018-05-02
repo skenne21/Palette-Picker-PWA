@@ -1,4 +1,6 @@
 const pallete = {};
+const projects = [];
+const project = {}
 
 const randomColorGenerator = () => {
   pallete.colors = [];
@@ -7,20 +9,20 @@ const randomColorGenerator = () => {
     const palletes = $('article').get();
     const hexText = $('h2').get();
     if ($(palletes[i]).hasClass('lock')) {
-      lockedPallets(palletes, i);
+      lockedPallete(palletes, i);
     }
     if(!$(palletes[i]).hasClass('lock')) {
-      unlockedPallets(palletes, hexText, color, i);
+      unlockedPallete(palletes, hexText, color, i);
     }
   }
 }
 
-const lockedPallets = (palletes, i, ) => {
+const lockedPallete = (palletes, i) => {
   const hexCode = convertToHex(palletes[i].style.backgroundColor);
   pallete.colors.push(hexCode);
 }
 
-const unlockedPallets = (palletes, hexText, color, i) => {
+const unlockedPallete = (palletes, hexText, color, i) => {
   $(palletes[i]).css('background-color', color);
   $(hexText[i]).text(color.toUpperCase());
   pallete.colors.push(color)
@@ -34,12 +36,47 @@ const convertToHex = rgb => {
   ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
 }
 
-const toggleLock = (event) => {
+const toggleLock = event => {
   const pallete = event.target.closest('article');
   const button = event.target.closest('button');
   $(pallete).toggleClass('lock');
   $(button).toggleClass('locked');
 }
+
+const renderSelectOptions = projects => {
+  projects.forEach( project => {
+    $('.select_project').prepend(`
+      <option value='${project.project}'>${project.project}</option>`)
+  });
+}
+
+const renderProjects = projects => {
+  projects.forEach( project => {
+    $('.projects').append(`
+      <article class='project'>
+        <h3>${project.project}</h3>
+        <section class="project-palletes">
+          <div class="mini-pallete" style="background-color:${project.pallete[0]};">
+            <h4>${project.pallete[0]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[1]};">
+            <h4>${project.pallete[1]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[2]};">
+            <h4>${project.pallete[2]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[3]};">
+            <h4>${project.pallete[3]}</h4>
+          </div>
+          <div class="mini-pallete" style="background-color:${project.pallete[4]};">
+            <h4>${project.pallete[4]}</h4>
+          </div>
+        </section>
+      </article>
+    `)
+  });
+}
+
 
 const fetchPallets = async () => {
   const response = await fetch('http://localhost:3000/api/v1/palettes');
@@ -50,15 +87,31 @@ const fetchPallets = async () => {
 const fetchProjects = async () => {
   const response = await fetch('http://localhost:3000/api/v1/projects');
   const projects = await response.json();
-  console.log(projects)
+  renderProjects(projects.projects);
+  renderSelectOptions(projects.projects);
 }
 
-const setPalette = (event) => {
-  pallete.name = event.target.value;
-  
+
+
+const saveProjects = async () => {
+  const project = $('.project-name').val();
+
+  const response = await fetch('http://localhost:3000/api/v1/projects', {
+    method: 'POST',
+    body: JSON.stringify({project: project}),
+    headers: {'Content-Type' : 'application/json'}
+  });
+  console.log(response)
+  const data = response.json();
+  console.log(data);
+  $('.project-name').val('')
 }
 
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
-$('.palette_name').on('keyup', setPalette);
-$('document').ready(randomColorGenerator);
+$('.save-project').on('click', saveProjects);
+
+$(document).ready(() => {
+  randomColorGenerator(),
+  fetchProjects()
+});

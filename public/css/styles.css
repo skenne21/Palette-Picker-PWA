@@ -1,16 +1,12 @@
-body {
-  background-color: #404141;
+header {
+  background-color: #232028;
 }
 
-/*header {
-  background-color: ;
-}
-*/
 h1 {
   padding: 10px;
   letter-spacing: 2px;
   margin: 0;
-  color: #F4F4F4;
+  color: #F4F4F6;
   text-align: center;
   font-size: 3em;
 }
@@ -22,21 +18,39 @@ select {
     font-size: 1em;
 }
 
+button {
+  font-size: 1em;
+  outline: none;
+  border: 2px solid black;
+  color: black;
+}
+
+input {
+  height: 30px;
+  width: 300px;
+  padding-left: 10px;
+  font-size: 1em;
+}
+
+h3 {
+  padding-top: 0.5em;
+}
+
 .palette_container {
   width: 100%;
   height: 100%;
   display: inline-flex;
   flex-direction: row;
-  background-color: black;
+  background-color: #232028;
+  padding-bottom: 10px;
 }
 
 .palette {
-  z-index: 0;
-  position: relative;
+  border-radius: 20px;
   margin: 10px;
   width: 20%;
   height: 400px;
-  background-color: pink;
+  border: 6px solid  #F4F4F6;
 }
 
 .palette h2 {
@@ -53,41 +67,39 @@ select {
   height: 60px;
 }
 
-input {
-  height: 30px;
-  width: 300px;
-  padding-left: 10px;
-  font-size: 1em;
-}
-
 .palette_name {
   margin: 10px;
   position: relative;
   left: 1%;
 }
 
-.save_project {
+.save_palette {
   height: 35px;
   font-size: 1em;
 }
 
 .project_info {
-  position: relative;
-  left: 30%;
+  width: 50%;
+  text-align: center;
+  margin: 10px;
+  border-right: 2px solid black;
 }
 
 .lock_btn {
   width: 25%;
   position: relative;
   top: 10px;
-  left: 40%;
+  left: 34%;
   z-index: 3;
   outline: none;
   border-radius: 20%;
-  height: 90px;
+  height: 100px;
+  width: 30%;
+  background-color: #F4F4F6;
   background-image: url('../images/unlocked.png');
   background-size: cover;
   background-position: center; 
+  padding: 5px;
 }
 
 .locked {
@@ -96,7 +108,7 @@ input {
   background-position: center;
 }
 
-.handle {
+/*.handle {
   padding: 5px;
   position: absolute;
   top:  80%;
@@ -107,25 +119,37 @@ input {
   background-position: top;
   background-size: cover;
   border-top-style: 2px solid black; 
-}
+}*/
 
 .saved_projects {
-  position: relative;
-  margin: 3em auto;
-  width: 40%;
-  height: 300px;
-  text-align: center;
+  display: inline-flex;
+  width: 100%;
   font-size: 1.5em;
-  background-color: green;
 }
 
-.save-project {
-  vertical-align: top;
-  width: 30%;
-  height: 35px;
-  font-size: 0.6em;
+.create_new-projects {
+  width: 50%;
+  margin: 10px;
+  text-align: center;
 }
 
-h3 {
-  padding-top: 0.5em;
+.projects {
+  text-align: left;
+  display: block;
 }
+
+.mini-pallete {
+  display: inline-block;
+  margin: 20px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.mini-pallete h4 {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+
