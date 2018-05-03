@@ -34,6 +34,7 @@ const toggleLock = event => {
 }
 
 const renderSelectOptions = projects => {
+  $('.select_project').empty();
   projects.forEach( project => {
     $('.select_project').prepend(`
       <option id='${project.id}'value='${project.name}'>${project.name}</option>`)
@@ -41,33 +42,28 @@ const renderSelectOptions = projects => {
 }
 
 const renderProjects = (projects, paletes) => {
+  $('.projects').empty();
   const createdProjects = projects.map(project => {
     return (`
       <article>
         <h3>${project.name}</h3>
-        <div>${renderMiniPalettes(project.id, paletes)}</div>
+        <div>${renderExamplePalettes(project.id, paletes)}</div>
       </article>
     `)
   })
   $('.projects').append(createdProjects)
 }
 
-const renderMiniPalettes = ( id, paletes) => {
+const renderExamplePalettes = ( id, paletes) => {
   const projectsPalettes = paletes.filter( palete => palete.project_id === id);
   return projectsPalettes.map( (palette, index) => {
-    const hexCodeArray = createHexCodeArray(palette);
-    const cratedPalettes = hexCodeArray.map(hex => {
-      return(`
-        <div class="mini-pallete" style="background-color:${hex};">
-            <h4>${hex}</h4>
-        </div>
-      `)
-    }).join('')
-
+    const hexCodes = createHexCodeArray(palette);
+    const createdPalettes = createMiniPalettes(hexCodes)
     return(`
-      <div>
+      <div class='palette_wrapper' id='${palette.id}'>
       <p>${palette.name}</p>
-        ${cratedPalettes}
+      <button class='trash-can'></button>
+        ${createdPalettes}
       </div>
     `)
   }).join('')
@@ -75,11 +71,21 @@ const renderMiniPalettes = ( id, paletes) => {
 
 const createHexCodeArray = palette => {
   return Object.keys(palette).reduce((hexCodes, key) => {
-      if(key.includes('color')) {
-        hexCodes.push(palette[key])
-      }
-      return hexCodes
+    if(key.includes('color')) {
+      hexCodes.push(palette[key]);
+    }
+    return hexCodes;
   }, []);
+}
+
+const createMiniPalettes = hexCodes => {
+  return hexCodes.map(hex => {
+      return(`
+        <div class="mini-pallete" style="background-color:${hex};">
+          <h4>${hex}</h4>
+        </div>
+      `)
+    }).join('')
 }
 
 const fetchPaletesAndProjects = async () => {
@@ -92,38 +98,53 @@ const fetchPaletesAndProjects = async () => {
 const fetchPaletes = async () => {
   const response = await fetch('http://localhost:3000/api/v1/palettes');
   const palettes = await response.json();
-  return palettes
+  return palettes;
 }
 
 const fetchProjects = async () => {
   const response = await fetch('http://localhost:3000/api/v1/projects');
   const projects = await response.json();
-  return projects
+  return projects;
 }
 
 const saveProjects = async () => {
-  const name = $('.project-name').val(); 
-  await checkProjects(name)
-  const response = await fetch('http://localhost:3000/api/v1/projects', {
+  const name = $('.project-name').val();
+  resetInput($('.project-name')); 
+  const request = {
     method: 'POST',
     body: JSON.stringify({name}),
     headers: { 'Content-Type': 'application/json'}
-  });
-  await fetchPaletesAndProjects()
-  $('.project-name').val('');
+  }
+  const projects = await checkProjects(name);
+  if (projects.length >= 1) {
+    const response = await fetch('http://localhost:3000/api/v1/projects', request );
+    await fetchPaletesAndProjects();
+  }
 }
 
 const checkProjects = async (name) => {
-  const projects = await fetchProjects();
-  const isNamed = projects.find(project => project.name === name)
-  if (isNamed !== undefined) {
-    return( alert(`${name} is Already Saved!`))
-  } 
+  try {
+    const projects = await fetchProjects();
+    const isNamed = projects.find(project => project.name === name)
+    if (isNamed !== undefined) {
+      return( alert(`${name} is Already Saved!`));
+    } else {
+      return projects;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  
+}
+
+const resetInput = input => {
+  $(input).val('');
 }
 
 const savePalettes = async () => {
   palette.name = $('.palette_name').val();
-  palette.project_id= $('.select_project')[0].selectedOptions[0].id
+  palette.project_id= $('.select_project')[0].selectedOptions[0].id;
+  resetInput($('.palette_name'));
   try {
       const response = await fetch('http://localhost:3000/api/v1/palettes', {
       method: 'POST',
@@ -131,17 +152,22 @@ const savePalettes = async () => {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch ( error ) {
-    console.log(error)
+    console.log(error);
   } 
-  await fetchPaletesAndProjects()
-  $('.palette.name').val('');
+  await fetchPaletesAndProjects();
+}
 
+const removePalette = () => {
+  // need to do a check that the button is the only one getting clicked.
+  // then get id from wrapper
+  // remove from database with id
 }
 
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
 $('.save-project').on('click', saveProjects);
 $('.save_palette').on('click', savePalettes);
+$('.projects').on('click', removePalette);
 
 $(document).ready(() => {
   randomColorGenerator(),

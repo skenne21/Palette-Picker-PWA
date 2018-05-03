@@ -27,6 +27,11 @@ button {
   color: black;
 }
 
+button:hover {
+  background-color: black;
+  color: #F4F4F6;
+}
+
 input {
   height: 30px;
   width: 300px;
@@ -91,12 +96,10 @@ h3 {
 }
 
 .lock_btn {
-  width: 25%;
   position: relative;
   top: 10px;
   left: 34%;
   z-index: 3;
-  outline: none;
   border-radius: 20%;
   height: 100px;
   width: 30%;
@@ -111,20 +114,13 @@ h3 {
   background-image: url('../images/locked.png');
   background-size: cover;
   background-position: center;
+
 }
 
-/*.handle {
-  padding: 5px;
-  position: absolute;
-  top:  80%;
-  right: 0;
-  width: 100%;
-  height: 500px;
-  background-image: url('../images/handle.png');
-  background-position: top;
-  background-size: cover;
-  border-top-style: 2px solid black; 
-}*/
+.lock_btn:hover,
+.trash-can:hover {
+  background-color: white;
+}
 
 .saved_projects {
   display: inline-flex;
@@ -145,7 +141,7 @@ h3 {
 
 .mini-pallete {
   display: inline-block;
-  margin: 20px;
+  margin: 10px;
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -160,5 +156,20 @@ h3 {
 .select-label {
   position: relative;
   left: 1%;
+}
+
+.trash-can {
+  vertical-align: middle;
+  background-image: url('../images/garbage.png');
+  height: 60px;
+  width: 60px;
+  background-size: cover;
+  background-position: center; 
+  border: none;
+  margin: 10px;
+}
+
+.trash-can:hover {
+  background-image: url('../images/interface.png');
 }
 
