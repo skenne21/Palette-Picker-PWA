@@ -21,10 +21,10 @@ app.use(express.static('public'));
 
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
-    .then((projects) => {
+    .then(projects => {
       response.status(200).json(projects);
     })
-    .catch((error) => {
+    .catch(error => {
       response.status(500).json({error})
     });
 });
@@ -49,22 +49,47 @@ app.post('/api/v1/projects', (request, response) => {
     });
 });
 
-// app.get('/api/v1/palettes', (request, response) => {
+app.get('/api/v1/palettes', (request, response) => {
+  database('palettes').select()
+    .then(palettes => {
+      response.status(200).json(palettes)
+    })
+    .catch(error => {
+      response.status(500).json({error})
+    })
+});
+
+app.post('/api/v1/palettes', (request, response) => {
+  const usersData = request.body;
   
-// });
+  for (let requiredParameter of ['name', 'colors', 'project_id']) {
+    if(!usersData[requiredParameter]) {
+      return response
+        .status(422)
+        .send({error: `Expected format: { title: <String>, author: <String> }. You're missing a "${requiredParameter}" property.`
+      });
+    }
+  }
+  const { name, colors, project_id } = usersData;
+  const palette = {
+    name,
+    color1:colors[0],
+    color2:colors[1],
+    color3:colors[2],
+    color4:colors[3],
+    color5:colors[4],
+    project_id  
+  }
 
-
-
-// app.post('/api/v1/palettes', (request, response) => {
-//   const id = Date.now();
-//   const { palette } = request.body;
-//   if (!palette) {
-//     return response.status(422).send({error: 'No palette property provided'})
-//   } else {
-//     app.locals.palettes.push({id, palette});
-//     return response.status(201).json({id, palette});
-//   }
-// })
+  console.log(palette)
+  database('palettes').insert(palette, 'id')
+    .then(palette => {
+      response.status(201).json({id: palette[0]})
+    })
+    .catch(error => {
+      response.status(500).json({error})
+    });
+})
 
 
 
