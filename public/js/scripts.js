@@ -12,8 +12,7 @@ const randomColorGenerator = () => {
     if(!$(palletes[i]).hasClass('lock')) {
       unlockedPallete(palletes, hexText, color, i);
     }
-  }
-  
+  } 
 }
 
 const lockedPallete = (palletes, i) => {
@@ -54,11 +53,34 @@ const renderProjects = (projects, paletes) => {
 }
 
 const renderMiniPalettes = ( id, paletes) => {
-  const projectsPalettes = paletes.filter( palete => palete.project_id === id)
-  
-  return projectsPalettes;
+  const projectsPalettes = paletes.filter( palete => palete.project_id === id);
+  return projectsPalettes.map( (palette, index) => {
+    const hexCodeArray = createHexCodeArray(palette);
+    const cratedPalettes = hexCodeArray.map(hex => {
+      return(`
+        <div class="mini-pallete" style="background-color:${hex};">
+            <h4>${hex}</h4>
+        </div>
+      `)
+    }).join('')
+
+    return(`
+      <div>
+      <p>${palette.name}</p>
+        ${cratedPalettes}
+      </div>
+    `)
+  }).join('')
 }
 
+const createHexCodeArray = palette => {
+  return Object.keys(palette).reduce((hexCodes, key) => {
+      if(key.includes('color')) {
+        hexCodes.push(palette[key])
+      }
+      return hexCodes
+  }, []);
+}
 
 const fetchPaletesAndProjects = async () => {
   const paletes = await fetchPaletes();
@@ -81,12 +103,22 @@ const fetchProjects = async () => {
 
 const saveProjects = async () => {
   const name = $('.project-name').val(); 
+  await checkProjects(name)
   const response = await fetch('http://localhost:3000/api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({name}),
     headers: { 'Content-Type': 'application/json'}
   });
-  $('.project-name').val('')
+  await fetchPaletesAndProjects()
+  $('.project-name').val('');
+}
+
+const checkProjects = async (name) => {
+  const projects = await fetchProjects();
+  const isNamed = projects.find(project => project.name === name)
+  if (isNamed !== undefined) {
+    return( alert(`${name} is Already Saved!`))
+  } 
 }
 
 const savePalettes = async () => {
@@ -101,6 +133,9 @@ const savePalettes = async () => {
   } catch ( error ) {
     console.log(error)
   } 
+  await fetchPaletesAndProjects()
+  $('.palette.name').val('');
+
 }
 
 $('.palette_generator').on('click', randomColorGenerator);
