@@ -157,19 +157,40 @@ const savePalettes = async () => {
   await fetchPaletesAndProjects();
 }
 
-const removePalette = () => {
-  // need to do a check that the button is the only one getting clicked.
-  // then get id from wrapper
-  // remove from database with id
+const removePalette = async () => {
+  const parent = $(event.target).closest('.palette_wrapper')
+  const id = parent[0].id
+  deletePalete(id)
+  $(parent).remove();
 }
+
+const deletePalete = async id => {
+  const userResponse = {
+    method: 'DELETE',
+    body: JSON.stringify({id}),
+    headers: { 'Content-Type': 'application/json'}
+  }
+  try {
+    await fetch(`http://localhost:3000/api/v1/palettes/${id}`, response);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
 $('.save-project').on('click', saveProjects);
 $('.save_palette').on('click', savePalettes);
-$('.projects').on('click', removePalette);
+$('.projects').on('click', '.trash-can', removePalette);
 
 $(document).ready(() => {
   randomColorGenerator(),
   fetchPaletesAndProjects()
 });
+
+// notes to finsish project:
+// need to have articles display colors when clicked either palette or name
+// need to refactor getting palettes for specfic project using :id fetch call instead
+// test
+// clean up ui
