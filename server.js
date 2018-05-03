@@ -76,7 +76,6 @@ app.get('api.v1/palettes/:id', (request, response) => {
 });
 
 app.delete('/api/v1/palettes/:id', (request, response) => {
-  console.log(request.params)
   database('palettes').where('id', request.params.id).del()
     .then(id => {
       if (id) {
@@ -92,7 +91,21 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
     })
 })
 
-
+app.delete('/api/v1/projects/:id', (request, response) => {
+  database('projects').where('id', request.params.id).del()
+    .then(id => {
+      if (id) {
+        response.status(202).json({ id })
+      } else {
+        response.status(404).json({
+          error: `Could not find palette with id ${request.params.id}`
+        })
+      }
+    })
+    .catch( error => {
+      response.status(500).json({ error })
+    })
+})
 
 app.post('/api/v1/palettes', (request, response) => {
   const usersData = request.body;
@@ -116,7 +129,6 @@ app.post('/api/v1/palettes', (request, response) => {
     project_id  
   }
 
-  console.log(palette)
   database('palettes').insert(palette, 'id')
     .then(palette => {
       response.status(201).json({id: palette[0]})

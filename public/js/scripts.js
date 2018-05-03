@@ -4,7 +4,12 @@ const randomColorGenerator = () => {
   palette.colors = [];
   for (let i = 0; i < 5; i++) {
     const color =  '#' + Math.floor(Math.random()*16777215).toString(16).toUpperCase();
-    const palletes = $('article').get();
+    createPalettes(color, i)
+  } 
+}
+
+const createPalettes = (color, i) => {
+  const palletes = $('article').get();
     const hexText = $('h2').get();
     if ($(palletes[i]).hasClass('lock')) {
       lockedPallete(palletes, i);
@@ -12,7 +17,6 @@ const randomColorGenerator = () => {
     if(!$(palletes[i]).hasClass('lock')) {
       unlockedPallete(palletes, hexText, color, i);
     }
-  } 
 }
 
 const lockedPallete = (palletes, i) => {
@@ -171,10 +175,14 @@ const deletePalete = async id => {
     headers: { 'Content-Type': 'application/json'}
   }
   try {
-    await fetch(`http://localhost:3000/api/v1/palettes/${id}`, response);
+    await fetch(`http://localhost:3000/api/v1/palettes/${id}`, userResponse);
   } catch (error) {
     console.log(error)
   }
+}
+
+const showPalettes = () => {
+  
 }
 
 
@@ -183,6 +191,7 @@ $('.lock_btn').on('click', toggleLock);
 $('.save-project').on('click', saveProjects);
 $('.save_palette').on('click', savePalettes);
 $('.projects').on('click', '.trash-can', removePalette);
+$('.projects').on('click', '.palette_wrapper', showPalettes);
 
 $(document).ready(() => {
   randomColorGenerator(),
