@@ -81,7 +81,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
   database('palettes').where('id', request.params.id).del()
     .then(id => {
       if (id) {
-        response.status(202).json({ id })
+        response.status(204).json({ id })
       } else {
         response.status(404).json({
           error: `Could not find palette with id ${request.params.id}`
@@ -93,22 +93,6 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
     })
 })
 
-app.delete('/api/v1/projects/:id', (request, response) => {
-  database('projects').where('id', request.params.id).del()
-    .then(id => {
-      if (id) {
-        response.status(202).json({ id })
-      } else {
-        response.status(404).json({
-          error: `Could not find palette with id ${request.params.id}`
-        })
-      }
-    })
-    .catch( error => {
-      response.status(500).json({ error })
-    })
-})
-
 app.post('/api/v1/palettes', (request, response) => {
   const usersData = request.body;
   
@@ -116,7 +100,7 @@ app.post('/api/v1/palettes', (request, response) => {
     if(!usersData[requiredParameter]) {
       return response
         .status(422)
-        .send({error: `Expected format: { title: <String>, author: <String> }. You're missing a "${requiredParameter}" property.`
+        .send({error: `Expected format: { name: <String>, project_id: <number>, colors: <array> }. You're missing a "${requiredParameter}" property.`
       });
     }
   }
@@ -146,4 +130,4 @@ app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 })
 
-module.exports = app;
+module.exports = app
