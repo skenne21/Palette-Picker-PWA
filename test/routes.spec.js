@@ -145,7 +145,78 @@ describe('API Routes', () => {
         throw err;
       });
     });
+
+    it.skip('Should send a status of 404 of the id does not exist', () => {
+      return chai.request(server)
+      .get('api/v1/palettes/3')
+      .then( response => {
+        response.should.have.status(404);
+        response.should.be.a('object');
+        response.body.error.should.equal('Could not find palette with id 3');
+      })
+      .catch(error => {
+        throw error;
+      })
+    })
   });
 
-  
-})
+  describe('DELETE /api/v1/palettes/:id', () => {
+    it('Should delete end point with specfic id', () => {
+      return chai.request(server)
+      .delete('/api/v1/palettes/1')
+      .then( response => {
+        response.should.have.status(204);
+      })
+      .catch( error => {
+        throw error;
+      })
+    });
+
+    it('Should send a status of 404, if Id does not match palettes', () => {
+      return chai.request(server)
+      .delete('/api/v1/palettes/10')
+      .then( response => {
+        response.should.have.status(404);
+      })
+      .catch( error => {
+        throw error;
+      });
+    });
+  });
+
+  describe('POST /api/v1/palettes', () => {
+    it('Should post palettes to the database', () => {
+      return chai.request(server)
+      .post('/api/v1/palettes')
+      .send({
+        name: 'Jokers Happy Place',
+        colors: ['green', 'blue', 'pink', 'red', 'white'],
+        project_id: 1
+      })
+      .then( response => {
+        response.should.have.status(201)
+        response.body.should.be.a('object');
+        response.body.should.have.property('id');
+        response.body.id.should.equal(3)
+      })
+      .catch( error => {
+        throw error;
+      });
+    });
+
+    it('Should send 422 if missing required params', () => {
+      return chai.request(server)
+      .post('/api/v1/palettes')
+      .send({name: 'hello', project_id: 1})
+      .then( response => {
+        response.should.have.status(422)
+        response.body.should.be.a('object')
+        response.body.error.should.equal('Expected format: { name: <String>, project_id: <number>, colors: <array> }. You\'re missing a "colors" property.')
+      })
+      .catch( error => {
+        throw error;
+      })
+    })
+  });
+ 
+});
