@@ -12,12 +12,14 @@ h1 {
 }
 
 select {
-    background-color: transparent;
-    width: 40%;
-    height: 37px;
-    margin: 10px;
-    margin-left: 20px;
-    font-size: 1em;
+  position: relative;
+  right: -9em;
+  background-color: transparent;
+  width: 40%;
+  height: 37px;
+  margin: 10px;
+  margin-left: 20px;
+  font-size: 1em;
 }
 
 button {
@@ -81,18 +83,21 @@ h3 {
 }
 
 .save_palette {
+  margin-bottom: 2em; 
+  width: 17%;
   position: relative;
   top: 60px;
-  right: 250px;
+  right: 280px;
   height: 35px;
   font-size: 1em;
 }
 
 .project_info {
-  width: 50%;
+  width: 90%;
   text-align: center;
   margin: 10px;
-  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 2em;
 }
 
 .lock_btn {
@@ -124,22 +129,25 @@ h3 {
 
 .saved_projects {
   display: inline-flex;
+  flex-direction: column;
   width: 100%;
   font-size: 1.5em;
 }
 
 .create_new-projects {
   width: 50%;
-  margin: 10px;
+  margin: 10px auto;
   text-align: center;
 }
 
 .projects {
+  margin: auto;
   text-align: left;
   display: block;
 }
 
 .mini-pallete {
+  border: 2px solid black;
   display: inline-block;
   margin: 10px;
   width: 90px;
@@ -155,7 +163,8 @@ h3 {
 
 .select-label {
   position: relative;
-  left: 1%;
+  left: -52%;
+  top: 2em;
 }
 
 .trash-can {

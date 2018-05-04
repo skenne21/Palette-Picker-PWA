@@ -50,7 +50,7 @@ const renderProjects = (projects, paletes) => {
   const createdProjects = projects.map(project => {
     return (`
       <article>
-        <h3>${project.name}</h3>
+        <h3>Project: ${project.name}</h3>
         <div>${renderExamplePalettes(project.id, paletes)}</div>
       </article>
     `)
@@ -93,22 +93,35 @@ const createMiniPalettes = hexCodes => {
 }
 
 const fetchPaletesAndProjects = async () => {
-  const paletes = await fetchPaletes();
-  const projects = await fetchProjects();
-  renderProjects(projects, paletes);
-  renderSelectOptions(projects);
+  try {
+    const paletes = await fetchPaletes();
+    const projects = await fetchProjects();
+    renderProjects(projects, paletes);
+    renderSelectOptions(projects);
+  } catch (error) {
+    console.log(error)
+  } 
 }
 
 const fetchPaletes = async () => {
-  const response = await fetch('http://localhost:3000/api/v1/palettes');
-  const palettes = await response.json();
-  return palettes;
+  try {
+    const response = await fetch('http://localhost:3000/api/v1/palettes');
+    const palettes = await response.json();
+    return palettes;
+  } catch ( error ) {
+    console.log(error);
+  }  
 }
 
 const fetchProjects = async () => {
-  const response = await fetch('http://localhost:3000/api/v1/projects');
-  const projects = await response.json();
-  return projects;
+  try {
+    const response = await fetch('http://localhost:3000/api/v1/projects');
+    const projects = await response.json();
+    return projects;
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
 
 const saveProjects = async () => {
@@ -119,11 +132,15 @@ const saveProjects = async () => {
     body: JSON.stringify({name}),
     headers: { 'Content-Type': 'application/json'}
   }
-  const projects = await checkProjects(name);
-  if (projects.length >= 1) {
-    const response = await fetch('http://localhost:3000/api/v1/projects', request );
-    await fetchPaletesAndProjects();
-  }
+  try {
+    const projects = await checkProjects(name);
+    if (projects.length >= 1) {
+      const response = await fetch('http://localhost:3000/api/v1/projects', request );
+      await fetchPaletesAndProjects();
+    }
+  } catch (error) {
+    console.log(error);
+  } 
 }
 
 const checkProjects = async (name) => {
@@ -203,9 +220,3 @@ $(document).ready(() => {
   randomColorGenerator(),
   fetchPaletesAndProjects()
 });
-
-// notes to finsish project:
-// need to have articles display colors when clicked either palette or name
-// need to refactor getting palettes for specfic project using :id fetch call instead
-// test
-// clean up ui
