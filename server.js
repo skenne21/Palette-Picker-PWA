@@ -12,10 +12,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
+app.use((request, response, next) => {
+  response.header('Access-Control-Allow-Origin', '*')
+  next()
+});
+
 app.get('/', (request, response) => {
 
 });
 
+Access-Control-Allow-Origin: *
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
     .then(projects => {
