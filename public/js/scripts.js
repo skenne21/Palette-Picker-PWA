@@ -105,7 +105,7 @@ const fetchPaletesAndProjects = async () => {
 
 const fetchPaletes = async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/v1/palettes');
+    const response = await fetch('/api/v1/palettes');
     const palettes = await response.json();
     return palettes;
   } catch ( error ) {
@@ -115,7 +115,7 @@ const fetchPaletes = async () => {
 
 const fetchProjects = async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/v1/projects');
+    const response = await fetch('/api/v1/projects');
     const projects = await response.json();
     return projects;
   } catch (error) {
@@ -135,7 +135,7 @@ const saveProjects = async () => {
   try {
     const projects = await checkProjects(name);
     if (projects.length >= 1) {
-      const response = await fetch('http://localhost:3000/api/v1/projects', request );
+      const response = await fetch('/api/v1/projects', request );
       await fetchPaletesAndProjects();
     }
   } catch (error) {
@@ -167,7 +167,7 @@ const savePalettes = async () => {
   palette.project_id= $('.select_project')[0].selectedOptions[0].id;
   resetInput($('.palette_name'));
   try {
-      const response = await fetch('http://localhost:3000/api/v1/palettes', {
+      const response = await fetch('/api/v1/palettes', {
       method: 'POST',
       body: JSON.stringify(palette),
       headers: { 'Content-Type': 'application/json' }
@@ -192,7 +192,7 @@ const deletePalete = async id => {
     headers: { 'Content-Type': 'application/json'}
   }
   try {
-    await fetch(`http://localhost:3000/api/v1/palettes/${id}`, userResponse);
+    await fetch(`/api/v1/palettes/${id}`, userResponse);
   } catch (error) {
     console.log(error)
   }
