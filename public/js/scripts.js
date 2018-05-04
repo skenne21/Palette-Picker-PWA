@@ -65,7 +65,7 @@ const renderExamplePalettes = ( id, paletes) => {
     const createdPalettes = createMiniPalettes(hexCodes)
     return(`
       <div class='palette_wrapper' id='${palette.id}'>
-      <p>${palette.name}</p>
+      <p class='palette_name'>${palette.name}</p>
       <button class='trash-can'></button>
         ${createdPalettes}
       </div>
@@ -182,7 +182,13 @@ const deletePalete = async id => {
 }
 
 const showPalettes = () => {
-  
+  if (event.target.matches('.palette_wrapper') || event.target.matches('.palette_name')) {
+    const array = $(event.target).find('h4').text().split('#')
+    array.splice(0, 1);
+    array.forEach( (color, index) => {
+      createPalettes(`#${color}`, index)
+    })
+  }
 }
 
 

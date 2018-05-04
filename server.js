@@ -8,11 +8,6 @@ const database = require('knex')(configuration);
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Palette Picker';
 
-// app.use((request, response, next) => {
-//   response.header('Access-Control-Allow-Origin', '*')
-//   next()
-// });
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
@@ -123,8 +118,6 @@ app.post('/api/v1/palettes', (request, response) => {
       response.status(500).json({error})
     });
 })
-
-
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
