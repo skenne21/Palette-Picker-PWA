@@ -17,7 +17,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
+app.get('/', (request, response) => {
 
+});
 
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
@@ -59,7 +61,7 @@ app.get('/api/v1/palettes', (request, response) => {
     })
 });
 
-app.get('api.v1/palettes/:id', (request, response) => {
+app.get('api/v1/palettes/:id', (request, response) => {
   database('palettes').where('id', request.params.id).select()
     .then(palette => {
       if (palette.length) {
@@ -143,3 +145,5 @@ app.post('/api/v1/palettes', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 })
+
+module.exports = app;
