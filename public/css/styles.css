@@ -13,7 +13,7 @@ h1 {
 
 select {
   position: relative;
-  right: -9em;
+  right: -13.5em;
   background-color: transparent;
   width: 40%;
   height: 37px;
@@ -43,6 +43,11 @@ input {
 
 h3 {
   padding-top: 0.5em;
+}
+
+label {
+      position: relative;
+    left: 202px;
 }
 
 .palette_container {
@@ -77,9 +82,9 @@ h3 {
 }
 
 .palette_name {
-  margin: 10px;
+  width: 38%;
   position: relative;
-  left: 1%;
+  left: 17%;
 }
 
 .save_palette {
@@ -163,7 +168,7 @@ h3 {
 
 .select-label {
   position: relative;
-  left: -52%;
+  left: -49.5%;
   top: 2em;
 }
 
