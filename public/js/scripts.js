@@ -208,6 +208,16 @@ const showPalettes = () => {
   }
 }
 
+const registerServiceWorker = () => {
+  navigator.serviceWorker.register('../service-workers.js')
+    .then(registration => {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    })
+    .catch( error => {
+      console.log('ServiceWorker registration failed: ', error)
+    })
+}
+
 
 $('.palette_generator').on('click', randomColorGenerator);
 $('.lock_btn').on('click', toggleLock);
