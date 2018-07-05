@@ -226,7 +226,7 @@ $('.save_palette').on('click', savePalettes);
 $('.projects').on('click', '.trash-can', removePalette);
 $('.projects').on('click', '.palette_wrapper', showPalettes);
 
-if ('service-worker' in navigator) {
+if ('serviceWorker' in navigator]) {
   window.addEventListener('load', registerServiceWorker);
 
 } else {
