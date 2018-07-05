@@ -1,6 +1,19 @@
+this.addEventListener('activate', event => {
+  let cacheWhitelist = ['assets-v1'];
+  event.waitUntill(
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(key)
+        }
+      }));
+    })).then(() => clients.claim())
+  );
+});
+
 this.addEventListener('install', event => {
   event.waitUntill(
-    caches.open('images-v1').then(cache => {
+    caches.open('assets-v1').then(cache => {
       return cache.addAll([
         '/',
         '/js/scripts.js',
@@ -14,4 +27,5 @@ this.addEventListener('install', event => {
     })
   );
 });
+
 
