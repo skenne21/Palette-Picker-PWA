@@ -1,0 +1,30 @@
+{
+  "short_name": "Palette",
+  "name": "Palette Picker",
+  "background_color": "#6bcae5",
+  "theme_color": "#6bcae5",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "images/colorwheel.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/colorwheel.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "images/colorwheel.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/colorwheel.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html?launcher=true"
+}
