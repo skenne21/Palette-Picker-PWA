@@ -208,15 +208,7 @@ const showPalettes = () => {
   }
 }
 
-const registerServiceWorker = () => {
-  navigator.serviceWorker.register('../service-workers.js')
-    .then(registration => {
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    })
-    .catch( error => {
-      console.log('ServiceWorker registration failed: ', error)
-    })
-}
+
 
 
 $('.palette_generator').on('click', randomColorGenerator);
@@ -226,11 +218,15 @@ $('.save_palette').on('click', savePalettes);
 $('.projects').on('click', '.trash-can', removePalette);
 $('.projects').on('click', '.palette_wrapper', showPalettes);
 
-if ('serviceWorker' in navigator]) {
-  window.addEventListener('load', registerServiceWorker);
-
-} else {
-  console.log('service worker not supported')
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../service-workers.js')
+      .then(reg => {
+        console.log('ServiceWorker registration successful');
+      }).catch(err => {
+        console.log(`ServiceWorker registration failed: ${err}`);
+      });
+  });
 }
 
 $(document).ready(() => {
